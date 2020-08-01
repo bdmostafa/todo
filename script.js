@@ -74,7 +74,10 @@ function checkTodoItem(event) {
 
         // Animation when deleting
         todoForDelete.classList.add('animationDelete');
-        removeTodoFromLocalStorage(todoForDelete)
+
+        // Remove from Local Storage
+        removeTodoFromLocalStorage(todoForDelete);
+
         // When animation finished, remove it
         todoForDelete.addEventListener('transitionend', () => {
             todoForDelete.remove();
@@ -138,4 +141,16 @@ function getTodoFromLocalStorage() {
     todoItems.forEach((todo) => {
         todoDiv(todo);
     })
+}
+
+// Function to remove todo items from local storage
+function removeTodoFromLocalStorage(todoForDelete) {
+    checkTodoLocalStorage();
+
+    // Item index to be deleted
+    const todoIndex = todoForDelete.children[0].innerText;
+    // From index, remove 1 item 
+    todoItems.splice(todoItems.indexOf(todoIndex), 1);
+    // Save updated todoItems to local storage 
+    localStorage.setItem('todoItems', JSON.stringify(todoItems));
 }
