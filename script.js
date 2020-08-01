@@ -12,7 +12,7 @@ filter.addEventListener('click', filterTodo);
 
 
 // Functions =========================================
-// function for add new todo
+// Function for add new todo
 function addTodo(event) {
     // Stop auto reloading / form submitting
     event.preventDefault();
@@ -25,6 +25,9 @@ function addTodo(event) {
     const todoLi = document.createElement('li');
     todoLi.classList.add('todo-item');
     todoLi.innerText = todoInput.value;
+
+    // Add todo to local storage
+    saveTodoToLocalStorage(todoInput.value);
 
     // Create BUTTON (Check)(Trash)
     const completedBtn = document.createElement('button');
@@ -47,7 +50,7 @@ function addTodo(event) {
 
 }
 
-// function for complete and delete todo
+// Function for complete and delete todo
 function checkTodoItem(event) {
     const item = event.target;
 
@@ -69,7 +72,7 @@ function checkTodoItem(event) {
     }
 }
 
-// function for filter todo lists - (all, completed, uncompleted)
+// Function for filter todo lists - (all, completed, uncompleted)
 function filterTodo(event) {
     const todoForFilter = todoList.childNodes;
     todoForFilter.forEach((todo) => {
@@ -93,4 +96,18 @@ function filterTodo(event) {
                 break;
         }
     })
+}
+
+// Function for saving todo in local storage
+function saveTodoToLocalStorage(todoItem) {
+    let todoItems;
+
+    // Check whether todoItems is there or not
+    if (localStorage.getItem('todoItems') === null) {
+        todoItems = [];
+    } else {
+        todoItems = JSON.parse(localStorage.getItem('todoItems'))
+    }
+    todoItems.push(todoItem);
+    localStorage.setItem('todoItems', JSON.stringify(todoItems));
 }
