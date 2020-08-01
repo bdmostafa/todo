@@ -43,3 +43,57 @@ form button:hover {
     background: rgb(6, 230, 125);
     color: white;
 }
+
+.todo-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-card {
+    margin: 0.5rem;
+    background: white;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.25rem;
+}
+
+.todo-list {
+    list-style: none;
+    min-width: 30%;
+}
+
+.todo-card li {
+    flex: 1
+}
+
+.todo-item {
+    padding: .25rem .75rem;
+}
+
+.complete-btn,
+.delete-btn {
+    background: rgb(3, 185, 100);
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.delete-btn {
+    background: rgb(255, 166, 0);
+}
+
+.delete-btn:hover {
+    color: rgb(255, 166, 0);
+    background: white;
+}
+
+.complete-btn:hover {
+    color: rgb(3, 185, 100);
+    background: white;
+}
