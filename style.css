@@ -58,6 +58,7 @@ form button:hover {
     justify-content: space-between;
     align-items: center;
     font-size: 1.25rem;
+    transition: all .75s ease;
 }
 
 .todo-list {
@@ -96,4 +97,19 @@ form button:hover {
 .complete-btn:hover {
     color: rgb(3, 185, 100);
     background: white;
+}
+
+.fa-trash-alt,
+.fa-check-circle {
+    pointer-events: none;
+}
+
+.completed {
+    text-decoration: line-through;
+    opacity: .75;
+}
+
+.animationDelete {
+    transform: translateX(5rem) rotateX(90deg);
+    opacity: 0;
 }
