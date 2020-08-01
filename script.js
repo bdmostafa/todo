@@ -74,7 +74,7 @@ function checkTodoItem(event) {
 
         // Animation when deleting
         todoForDelete.classList.add('animationDelete');
-
+        removeTodoFromLocalStorage(todoForDelete)
         // When animation finished, remove it
         todoForDelete.addEventListener('transitionend', () => {
             todoForDelete.remove();
@@ -128,4 +128,14 @@ function saveTodoToLocalStorage(todoItem) {
     // Save todo into local
     todoItems.push(todoItem);
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
+}
+
+// Function to get todo items from local storage
+function getTodoFromLocalStorage() {
+
+    checkTodoLocalStorage();
+
+    todoItems.forEach((todo) => {
+        todoDiv(todo);
+    })
 }
