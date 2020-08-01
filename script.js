@@ -6,6 +6,7 @@ const filter = document.querySelector('.filter');
 
 
 // Event Listeners
+document.addEventListener('DOMContentLoaded', getTodoFromLocalStorage);
 todoBtn.addEventListener('click', addTodo);
 todoList.addEventListener('click', checkTodoItem);
 filter.addEventListener('click', filterTodo);
@@ -17,6 +18,16 @@ function addTodo(event) {
     // Stop auto reloading / form submitting
     event.preventDefault();
 
+    // Function to create elements and append todo
+    todoDiv(todoInput.value);
+
+    // Clear TodoInput value
+    todoInput.value = '';
+
+}
+
+// Function to create elements and append todo
+function todoDiv(todo) {
     // Create TodoCard DIV section
     const todoCard = document.createElement('div');
     todoCard.classList.add('todo-card');
@@ -24,10 +35,12 @@ function addTodo(event) {
     // Create LI
     const todoLi = document.createElement('li');
     todoLi.classList.add('todo-item');
-    todoLi.innerText = todoInput.value;
+    todoLi.innerText = todo;
 
     // Add todo to local storage
-    saveTodoToLocalStorage(todoInput.value);
+    if (todoInput.value) {
+        saveTodoToLocalStorage(todo);
+    }
 
     // Create BUTTON (Check)(Trash)
     const completedBtn = document.createElement('button');
@@ -44,10 +57,6 @@ function addTodo(event) {
     todoCard.appendChild(completedBtn);
     todoCard.appendChild(deleteBtn);
     todoList.appendChild(todoCard);
-
-    // Clear TodoInput value
-    todoInput.value = '';
-
 }
 
 // Function for complete and delete todo
@@ -65,6 +74,7 @@ function checkTodoItem(event) {
 
         // Animation when deleting
         todoForDelete.classList.add('animationDelete');
+
         // When animation finished, remove it
         todoForDelete.addEventListener('transitionend', () => {
             todoForDelete.remove();
@@ -98,16 +108,24 @@ function filterTodo(event) {
     })
 }
 
-// Function for saving todo in local storage
-function saveTodoToLocalStorage(todoItem) {
-    let todoItems;
-
-    // Check whether todoItems is there or not
+// todoItems variable for local storage
+let todoItems;
+// Check todo items in local storage
+function checkTodoLocalStorage() {
     if (localStorage.getItem('todoItems') === null) {
         todoItems = [];
     } else {
         todoItems = JSON.parse(localStorage.getItem('todoItems'))
     }
+    return todoItems;
+}
+
+// Function for saving todo items in local storage
+function saveTodoToLocalStorage(todoItem) {
+
+    checkTodoLocalStorage();
+
+    // Save todo into local
     todoItems.push(todoItem);
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
 }
