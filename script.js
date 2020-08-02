@@ -36,6 +36,8 @@
         // Create LI
         const todoLi = document.createElement('li');
         todoLi.classList.add('todo-item');
+        // Validation for empty, null, undefined or blank
+        if (!todo || todo.length === 0 || /^\s*$/.test(todo)) return;
         todoLi.innerText = todo;
 
         // Add todo to local storage
