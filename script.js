@@ -57,7 +57,7 @@ function todoDiv(todo) {
     deleteBtn.classList.add('delete-btn');
     deleteBtn.innerHTML = `<i class="fas fa-trash-alt"></i>`;
 
-    // Append todoLi, completedBtn and deleteBtn to todoCard then todoCard to todoList
+    // Append todoLi, editBtn, completedBtn and deleteBtn to todoCard then todoCard to todoList
     todoCard.appendChild(todoLi);
     todoCard.appendChild(editBtn);
     todoCard.appendChild(completedBtn);
@@ -65,7 +65,7 @@ function todoDiv(todo) {
     todoList.appendChild(todoCard);
 }
 
-// Function for complete and delete todo
+// Function for edit, complete and delete todo
 function checkTodoItem(event) {
     const item = event.target;
 
@@ -79,8 +79,11 @@ function checkTodoItem(event) {
         } else {
             editedTodo = resultPopup;
         }
+        // console.log(indexOf(item.parentElement))
+        // console.log(indexOf(item.parentElement.children[0]))
+        removeTodoFromLocalStorage(item.parentElement);
         item.parentElement.children[0].innerHTML = editedTodo;
-
+        saveTodoToLocalStorage(editedTodo);
     }
 
     // Complete Todo
@@ -158,6 +161,7 @@ function getTodoFromLocalStorage() {
 
     checkTodoLocalStorage();
 
+    // Get todo from local storage and display on the front-end
     todoItems.forEach((todo) => {
         todoDiv(todo);
     })
