@@ -5,7 +5,7 @@
 }
 
 body {
-    background-image: linear-gradient(90deg, rgba(255, 166, 0, 0.74), rgba(30, 219, 131, 0.568));
+    background-image: linear-gradient(90deg, #e56399e1, rgba(30, 219, 131, 0.568));
     color: azure;
     font-family: 'Recursive', sans-serif;
     ;
@@ -111,6 +111,7 @@ select {
     padding: .25rem .75rem;
 }
 
+.edit-btn,
 .complete-btn,
 .delete-btn {
     background: rgb(3, 185, 100);
@@ -122,8 +123,18 @@ select {
     transition: all 0.3s ease-in-out;
 }
 
+.edit-btn {
+    background: #E56399;
+    margin-left: 5px;
+}
+
 .delete-btn {
     background: rgb(255, 166, 0);
+}
+
+.edit-btn:hover {
+    color: rgba(230, 26, 230, 0.849);
+    background: white;
 }
 
 .delete-btn:hover {
@@ -136,6 +147,7 @@ select {
     background: white;
 }
 
+.fa-edit,
 .fa-trash-alt,
 .fa-check-circle {
     pointer-events: none;
