@@ -36,6 +36,8 @@
         // Create LI
         const todoLi = document.createElement('li');
         todoLi.classList.add('todo-item');
+        // Validation for empty, null, undefined or blank
+        if (!todo || todo.length === 0 || /^\s*$/.test(todo)) return;
         todoLi.innerText = todo;
 
         // Add todo to local storage
@@ -43,7 +45,12 @@
             saveTodoToLocalStorage(todo);
         }
 
-        // Create BUTTON (Check)(Trash)
+        // Create BUTTON (Edit)
+        const editBtn = document.createElement('button');
+        editBtn.classList.add('edit-btn');
+        editBtn.innerHTML = `<i class="fas fa-edit"></i>`;
+
+        // Create BUTTON (Check)
         const completedBtn = document.createElement('button');
         completedBtn.classList.add('complete-btn');
         completedBtn.innerHTML = `<i class="fas fa-check-circle"></i>`;
@@ -53,16 +60,36 @@
         deleteBtn.classList.add('delete-btn');
         deleteBtn.innerHTML = `<i class="fas fa-trash-alt"></i>`;
 
-        // Append todoLi, completedBtn and deleteBtn to todoCard then todoCard to todoList
+        // Append todoLi, editBtn, completedBtn and deleteBtn to todoCard then todoCard to todoList
         todoCard.appendChild(todoLi);
+        todoCard.appendChild(editBtn);
         todoCard.appendChild(completedBtn);
         todoCard.appendChild(deleteBtn);
         todoList.appendChild(todoCard);
     }
 
-    // Function for complete and delete todo
+    // Function for edit, complete and delete todo
     function checkTodoItem(event) {
         const item = event.target;
+
+        // Edit Todo
+        if (item.classList[0] === 'edit-btn') {
+            let currentTodo = item.parentElement.children[0].innerText;
+
+            // Prompt box for editing
+            let editedTodo;
+            let resultPopup = prompt("Please edit your TODO:", currentTodo);
+            if (resultPopup == null || resultPopup == "") {
+                editedTodo = todoForEdit;
+            } else {
+                editedTodo = resultPopup;
+            }
+
+            // Local storage update through editing
+            removeTodoFromLocalStorage(item.parentElement);
+            item.parentElement.children[0].innerHTML = editedTodo;
+            saveTodoToLocalStorage(editedTodo);
+        }
 
         // Complete Todo
         if (item.classList[0] === 'complete-btn') {
@@ -139,6 +166,7 @@
 
         checkTodoLocalStorage();
 
+        // Get todo from local storage and display on the front-end
         todoItems.forEach((todo) => {
             todoDiv(todo);
         })
